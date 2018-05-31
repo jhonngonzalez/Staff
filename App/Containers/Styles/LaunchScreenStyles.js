@@ -14,5 +14,15 @@ export default StyleSheet.create({
   },
   centered: {
     alignItems: 'center'
+  },
+  btnSing: {
+    margin: 10,
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'red'
+  },
+  backgroundView: {
+    backgroundColor: '#fff'
   }
 })

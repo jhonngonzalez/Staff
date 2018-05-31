@@ -8,6 +8,6 @@ import I18n from 'react-native-i18n'
 // Example
 ExamplesRegistry.addPluginExample('I18n', () =>
   <View>
-    <Text style={{color: '#ffffff'}}>Locale: {I18n.defaultLocale}</Text>
+    <Text style={{color: '#ffffff'}}>Locale: {I18n.defaultLocale} </Text>
   </View>
 )
