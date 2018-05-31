@@ -4,7 +4,7 @@ import Profile from '../Containers/Profile'
 import {connect} from 'react-redux'
 
 //actions
-// import * as actions from '../Redux/Auth'
+// import * as actions from '../Redux/AuthRedux'
 
 //styles
 import styles from './Styles/NavigationStyles'
