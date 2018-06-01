@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import ReduxPersist from '../Config/ReduxPersist'
 import { TouchableOpacity, ScrollView, Text, Image, View, TextInput } from 'react-native'
 // Styles
 import styles from './Styles/LaunchScreenStyles'
@@ -6,44 +8,57 @@ import styles from './Styles/LaunchScreenStyles'
 // Screem
 import Profile from './Profile'
 
-// import * as auth from '../Redux/Auth'
+import authActions from '../Redux/AuthRedux'
 
 export default class SignUp extends Component {
 
   constructor(props) {
     super(props);
+    this.dataForm = {
+      name: '',
+      email: '',
+      password: '',
+      confirm: ''
+    }
   }
 
-  mapDispatchToProps = dispatch => {
-    return {
-        setState: (text) => dispatch({type: 'SINGUP_STATE', text})
-    };
-  };
-  
-  /*dataUser = {name: '', email: '', password: '', confirm: ''};
-
-  validateSign = function(){
-    // if(this.dataUser.email && this.dataUser.password && this.dataUser.password === this.dataUser.confirm)
+  validateSign = function() {
+    if(this.dataForm.email && this.dataForm.password && this.dataForm.password === this.dataForm.confirm){
+      return false
+    }else{
       return true
-    // else
-    //   return false
-  }*/
-
-  setState = function(value, idInput) {
-    /*switch(idInput){
-      case 'Name':
-        // this.dataUser.name = value
-      case 'Email':
-        // this.dataUser.email = value
-      case 'Password':
-        // this.dataUser.password = value
-      case 'Confirm':
-        // this.dataUser.confirm = value
-      default:
-        // this.dataUser
-    }*/
+    }
   }
 
+  signUp = function(){
+    if (!ReduxPersist.active) {
+      this.props.signUp()
+    }
+  }
+
+  setState= function(value, nameInput) {
+    switch(nameInput){
+      case 'name':{
+        this.dataForm.name = value
+        this.validateSign()
+      };
+      case 'email':{
+        this.dataForm.email = value
+        this.validateSign()
+      };
+      case 'password':{
+        this.dataForm.password = value
+        this.validateSign()
+      };
+      case 'confirm':{
+        this.dataForm.confirm = value
+        this.validateSign()
+      };
+      default:{
+        this.validateSign()
+      };
+    }
+  }
 
   render () {
     return (
@@ -59,16 +74,16 @@ export default class SignUp extends Component {
               Company Name
             </Text>
             <TextInput 
-              onChangeText = {(text) => {this.setState(text, 'Name')}}
               name = "SignUp"
+              onChangeText={(text) => this.dataForm.name = text}
               className = "Name"
             />
             <Text style={styles.sectionText}>
               Email
             </Text>
             <TextInput 
-              onChangeText={(text) => {this.setState(text, 'Email')}}
               name = "SignUp"
+              onChangeText={(text) => this.setState({text}, 'email')}
               className = "Email"
             />
             <Text style={styles.sectionText}>
@@ -76,8 +91,8 @@ export default class SignUp extends Component {
             </Text>
             <TextInput 
               secureTextEntry={true} 
-              onChangeText={(text) => {this.setState(text, 'Password')}}
               name = "SignUp"
+              onChangeText={(text) => this.setState({text}, 'password')}
               className = "Password"
             />
             <Text style={styles.sectionText}>
@@ -85,14 +100,13 @@ export default class SignUp extends Component {
             </Text>
             <TextInput
               secureTextEntry={true} 
-              onChangeText={(text) => {this.setState(text, 'Confirm')}}
               name = "SignUp"
+              onChangeText={(text) => this.setState({text}, 'confirm')}
               className = "Confirm"
             />
             <TouchableOpacity 
               style={styles.btnSing} 
               onPress={this.signUp}
-              // disabled={this.validateSign}
             >
               <Text style={styles.buttonText}> Sing Up </Text>
             </TouchableOpacity>
@@ -102,3 +116,10 @@ export default class SignUp extends Component {
     )
   }
 }
+
+//
+const mapDispatchToProps = (dispatch) => ({
+  signUp: () => dispatch(authActions.singupRequest())
+})
+
+connect(null, mapDispatchToProps)(SignUp)

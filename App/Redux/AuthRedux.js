@@ -1,43 +1,54 @@
-import { createReducer, createActions } from 'reduxsauce'
+import { createReducer, createActions, createTypes } from 'reduxsauce'
 import Immutable from 'seamless-immutable'
 
+/* ------------- Action Creators ------------- */
 
-/* ------------- Types and Action Creators ------------- */
-
-const {Types, Creators} = createActions({
-	singUp: ['email', 'password' , 'role']
+const Creators = createActions({
+	singupRequest: ['datauser'],
+	singupSuccess: ['user'],
+	singupFailure: null
 })
 
-export const AuthTypes = Types
 export default Creators
+
+/* ------------- Types Creators ------------- */
+
+const Types = createTypes(`
+  SIGNUP_REQUEST
+  SIGNUP_SUCCESS
+  SIGNUP_FAILURE`,
+{})
+
+export const AuthTypes = Types
 
 /* ------------- Initial State ------------- */
 
 export const SINGUP_STATE = Immutable({
-	usercreated: false,
-	companyname: '',
-	email: '',
-	password: '',
-	confirm: '',
-	role: ''
+	signingup: null,
+	datauser: {},
+	error: null,
+	user: null
 })
 
 /* ------------- Reducers ------------- */
 
-export const singup = function(state, action) {
-	switch(action.type){
-		case 'singup':
-			return Object.assign({}, state, {
-	  		usercreated: true
-			}
-    	this.props.navigation.navigate('Profile');
-		default:
-			return state;
-  }
+export const signUpRequest = function(state, { data }) {
+	datauser = data
+	state.merge({ signingup: true, datauser})
+}
+
+export const signUpSuccess = function(state, action){
+	return state.merge({signingup: false, error: null, user: action})
+}
+
+export const signUpFailure = function(state) {
+	state.merge({signingup: false, error: true, user: null})
 }
 
 /* ------------- Hookup Reducers To Types ------------- */
 
 export const reducer = createReducer(SINGUP_STATE, {
-  [Types.SIGN_UP]: singup
+  [Types.SIGNUP_REQUEST]: signUpRequest,
+  [Types.SIGNUP_SUCCESS]: signUpSuccess,
+  [Types.SIGNUP_FAILURE]: signUpFailure
 })

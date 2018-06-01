@@ -7,10 +7,10 @@ export default {
   allowTextFontScaling: true,
 
   apiConfig: {
-    host                : 'http://localhost:3000',
-    apiPath             : 'api/v1',
-    authStrategy        : 'jwt',
-    apiVersion          : 'v1'
+    host         : 'http://localhost:3000',
+    apiPath      : 'api/v1',
+    authStrategy : 'jwt',
+    apiVersion   : 'v1'
   }
 
 }
