@@ -38,8 +38,15 @@ const create = (baseURL = config.apiConfig.host) => {
   //
   const getRoot = () => api.get('')
   const getRate = () => api.get('rate_limit')
-  const getUser = (username) => api.get('search/users', {q: username})
-  const getSign = (username) => api.post('signup', {q: username})
+  // const getUser = (username) => api.get('search/users', {q: username})
+  const getSign = (user) => {
+    console.log('user_', user)
+    return api.post('/users', {q: user})
+    // return{
+    //   ok: true,
+    //   data: user + {role: 'company'}
+    // }
+  }
 
   // ------
   // STEP 3
@@ -57,7 +64,8 @@ const create = (baseURL = config.apiConfig.host) => {
     // a list of the API functions from step 2
     getRoot,
     getRate,
-    getUser
+    // getUser,
+    getSign
   }
 }
 

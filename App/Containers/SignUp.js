@@ -8,13 +8,14 @@ import styles from './Styles/LaunchScreenStyles'
 // Screem
 import Profile from './Profile'
 
+// Auth
 import authActions from '../Redux/AuthRedux'
 
-export default class SignUp extends Component {
+export class SignUp extends Component {
 
   constructor(props) {
     super(props);
-    this.dataForm = {
+    this.state = {
       name: '',
       email: '',
       password: '',
@@ -22,42 +23,9 @@ export default class SignUp extends Component {
     }
   }
 
-  validateSign = function() {
-    if(this.dataForm.email && this.dataForm.password && this.dataForm.password === this.dataForm.confirm){
-      return false
-    }else{
-      return true
-    }
-  }
-
-  signUp = function(){
-    if (!ReduxPersist.active) {
-      this.props.signUp()
-    }
-  }
-
-  setState= function(value, nameInput) {
-    switch(nameInput){
-      case 'name':{
-        this.dataForm.name = value
-        this.validateSign()
-      };
-      case 'email':{
-        this.dataForm.email = value
-        this.validateSign()
-      };
-      case 'password':{
-        this.dataForm.password = value
-        this.validateSign()
-      };
-      case 'confirm':{
-        this.dataForm.confirm = value
-        this.validateSign()
-      };
-      default:{
-        this.validateSign()
-      };
-    }
+  signUp(){
+    console.log('view: ', this.state)
+    this.props.signUp(this.state)
   }
 
   render () {
@@ -74,16 +42,14 @@ export default class SignUp extends Component {
               Company Name
             </Text>
             <TextInput 
-              name = "SignUp"
-              onChangeText={(text) => this.dataForm.name = text}
+              onChangeText={(text) => this.state.name = text}
               className = "Name"
             />
             <Text style={styles.sectionText}>
               Email
             </Text>
             <TextInput 
-              name = "SignUp"
-              onChangeText={(text) => this.setState({text}, 'email')}
+              onChangeText={(text) => this.state.email = text}
               className = "Email"
             />
             <Text style={styles.sectionText}>
@@ -91,8 +57,7 @@ export default class SignUp extends Component {
             </Text>
             <TextInput 
               secureTextEntry={true} 
-              name = "SignUp"
-              onChangeText={(text) => this.setState({text}, 'password')}
+              onChangeText={(text) => this.state.password = text}
               className = "Password"
             />
             <Text style={styles.sectionText}>
@@ -100,13 +65,12 @@ export default class SignUp extends Component {
             </Text>
             <TextInput
               secureTextEntry={true} 
-              name = "SignUp"
-              onChangeText={(text) => this.setState({text}, 'confirm')}
+              onChangeText={(text) => this.state.confirm = text}
               className = "Confirm"
             />
             <TouchableOpacity 
               style={styles.btnSing} 
-              onPress={this.signUp}
+              onPress={this.signUp.bind(this)}
             >
               <Text style={styles.buttonText}> Sing Up </Text>
             </TouchableOpacity>
@@ -117,9 +81,18 @@ export default class SignUp extends Component {
   }
 }
 
-//
-const mapDispatchToProps = (dispatch) => ({
-  signUp: () => dispatch(authActions.singupRequest())
-})
 
-connect(null, mapDispatchToProps)(SignUp)
+mapStateToProps = function(state){
+  return {
+    user: state.auth
+  }
+} 
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    signUp: (user) => dispatch(authActions.signUpRequest(user))
+  }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp)

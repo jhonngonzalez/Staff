@@ -3,52 +3,54 @@ import Immutable from 'seamless-immutable'
 
 /* ------------- Action Creators ------------- */
 
-const Creators = createActions({
-	singupRequest: ['datauser'],
-	singupSuccess: ['user'],
-	singupFailure: null
-})
+const {Types, Creators} = createActions({
+	signUpRequest: ['datauser'],
+	signUpSuccess: ['response'],
+	signUpFailure: ['error']
+}, {})
 
-export default Creators
 
 /* ------------- Types Creators ------------- */
 
-const Types = createTypes(`
-  SIGNUP_REQUEST
-  SIGNUP_SUCCESS
-  SIGNUP_FAILURE`,
-{})
+// const Types = createTypes(`
+//   SIGNUP_REQUEST
+//   SIGNUP_SUCCESS
+//   SIGNUP_FAILURE`,
+// {})
 
-export const AuthTypes = Types
 
 /* ------------- Initial State ------------- */
 
-export const SINGUP_STATE = Immutable({
-	signingup: null,
-	datauser: {},
-	error: null,
-	user: null
+export const INITIAL_STATE = Immutable({
+	signUpResults: [],
+	signUpSuccessResults: [],
+	signUpFailureResults: []
 })
 
 /* ------------- Reducers ------------- */
 
-export const signUpRequest = function(state, { data }) {
-	datauser = data
-	state.merge({ signingup: true, datauser})
+export const signUpRequest = function(state, data) {
+	console.log('signUpRequest', data)
+	return state.merge({ signUpResults: data.datauser})
 }
 
-export const signUpSuccess = function(state, action){
-	return state.merge({signingup: false, error: null, user: action})
+export const signUpSuccess = function(state, actionResults){
+	console.log('signUpRequestSUCCESS', actionResults)
+	return state.merge({signUpSuccessResults: false, error: null, user: actionResults})
 }
 
-export const signUpFailure = function(state) {
-	state.merge({signingup: false, error: true, user: null})
+export const signUpFailure = function(state, error) {
+	console.log('signUpRequestFailure', error)
+	return state.merge({signUpFailureResults: false, error: error, user: null})
 }
 
 /* ------------- Hookup Reducers To Types ------------- */
 
-export const reducer = createReducer(SINGUP_STATE, {
-  [Types.SIGNUP_REQUEST]: signUpRequest,
-  [Types.SIGNUP_SUCCESS]: signUpSuccess,
-  [Types.SIGNUP_FAILURE]: signUpFailure
+export const reducer = createReducer(INITIAL_STATE, {
+  [Types.SIGN_UP_REQUEST]: signUpRequest,
+  [Types.SIGN_UP_SUCCESS]: signUpSuccess,
+  [Types.SIGN_UP_FAILURE]: signUpFailure
 })
+
+export const AuthTypes = Types
+export default Creators
