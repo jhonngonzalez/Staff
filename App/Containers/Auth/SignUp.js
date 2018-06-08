@@ -17,7 +17,7 @@ export class SignUp extends Component {
       email: '',
       password: '',
       confirm: '',
-      role: 'company'
+      role: ''
     }
   }
 
