@@ -1,26 +1,28 @@
 import { StackNavigator } from 'react-navigation'
-import SignUp from '../Containers/SignUp'
+import SignUp from '../Containers/Auth/SignUp'
 import Profile from '../Containers/Profile'
+import Login from '../Containers/Auth/Login'
+import Forgot from '../Containers/Auth/Forgot'
+import Reset from '../Containers/Auth/Reset'
 import {connect} from 'react-redux'
-
-//actions
-// import * as actions from '../Redux/AuthRedux'
 
 //styles
 import styles from './Styles/NavigationStyles'
 
 // Manifest of possible screens
-const PrimaryNav = StackNavigator({
+const authRoutes = StackNavigator({
   SignUp: { screen: SignUp },
+  Login: { screen: Login },
+  Forgot: { screen: Forgot },
+  Reset: { screen: Reset },
   Profile: { screen: Profile }
 }, {
   // Default config for all screens
   headerMode: 'none',
-  initialRouteName: 'SignUp',
+  initialRouteName: 'Login',
   navigationOptions: {
     headerStyle: styles.header
   }
 })
 
-// export default connect(null, actions)(PrimaryNav)
-export default PrimaryNav
+export default authRoutes

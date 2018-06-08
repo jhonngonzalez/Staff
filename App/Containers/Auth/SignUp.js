@@ -1,31 +1,41 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import ReduxPersist from '../Config/ReduxPersist'
 import { TouchableOpacity, ScrollView, Text, Image, View, TextInput } from 'react-native'
-// Styles
-import styles from './Styles/LaunchScreenStyles'
 
-// Screem
-import Profile from './Profile'
+// Styles
+import styles from './../Styles/LaunchScreenStyles'
 
 // Auth
-import authActions from '../Redux/AuthRedux'
+import authActions from '../../Redux/AuthRedux'
 
 export class SignUp extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      name: '',
+      companyName: '',
       email: '',
       password: '',
-      confirm: ''
+      confirm: '',
+      role: 'company'
     }
   }
 
   signUp(){
-    console.log('view: ', this.state)
-    this.props.signUp(this.state)
+    if(this.state.email && this.state.password && this.state.password === this.state.confirm){
+      console.log('view: ', this.state)
+      this.props.signUp(this.state)
+    }
+  }
+
+  login(){
+    this.props.navigation.navigate('Login')
+  }
+
+  componentWillReceiveProps(newProps){
+    if(this.props.user.signUpResults !== newProps.user.signUpResults && newProps.user.signUpResults === true){
+      this.props.navigation.navigate('Profile')
+    }
   }
 
   render () {
@@ -42,7 +52,7 @@ export class SignUp extends Component {
               Company Name
             </Text>
             <TextInput 
-              onChangeText={(text) => this.state.name = text}
+              onChangeText={(text) => this.state.companyName = text}
               className = "Name"
             />
             <Text style={styles.sectionText}>
@@ -72,15 +82,22 @@ export class SignUp extends Component {
               style={styles.btnSing} 
               onPress={this.signUp.bind(this)}
             >
-              <Text style={styles.buttonText}> Sing Up </Text>
+              <Text style={styles.buttonText}> 
+                Sing Up 
+              </Text>
             </TouchableOpacity>
+          </View>
+          <View>
+              <Text style={styles.sectionText} 
+                onPress={this.login.bind(this)}>
+                Login
+              </Text>
           </View>
         </ScrollView>
       </View>
     )
   }
 }
-
 
 mapStateToProps = function(state){
   return {
@@ -93,6 +110,5 @@ const mapDispatchToProps = (dispatch) => {
     signUp: (user) => dispatch(authActions.signUpRequest(user))
   }
 }
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignUp)

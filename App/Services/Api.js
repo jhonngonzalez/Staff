@@ -41,11 +41,24 @@ const create = (baseURL = config.apiConfig.host) => {
   // const getUser = (username) => api.get('search/users', {q: username})
   const getSign = (user) => {
     console.log('user_', user)
-    return api.post('/users', {q: user})
-    // return{
-    //   ok: true,
-    //   data: user + {role: 'company'}
-    // }
+    return api.post('/users', user)
+  }
+  const getLogin = (user) => {
+    console.log('user_', user)
+    return api.post('/login', user)
+  }
+  const getForgot = (user) => {
+    console.log('user_', user)
+    return api.post('/users/forgot-password', user)
+  }
+  const getReset = (user) => {
+    console.log('user_', user)
+    return api.post('/users/reset-password/', user)
+  }
+
+  const getToken = (user) => {
+    console.log('user_', user)
+    return api.get('/users/validate-token/'+user.code, user)
   }
 
   // ------
@@ -64,8 +77,11 @@ const create = (baseURL = config.apiConfig.host) => {
     // a list of the API functions from step 2
     getRoot,
     getRate,
-    // getUser,
-    getSign
+    getSign,
+    getLogin,
+    getForgot,
+    getReset,
+    getToken
   }
 }
 

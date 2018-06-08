@@ -12,7 +12,7 @@ import { GithubTypes } from '../Redux/GithubRedux'
 /* ------------- Sagas ------------- */
 
 import { startup } from './StartupSagas'
-import { getSignUp } from './AuthSagas'
+import * as getAuth from './AuthSagas'
 import { getUserAvatar } from './GithubSagas'
 
 /* ------------- API ------------- */
@@ -23,15 +23,22 @@ const api = /*DebugConfig.useFixtures ? FixtureAPI : */API.create()
 
 /* ------------- Connect Types To Sagas ------------- */
 
+//default function with roots
 export default function * root () {
   console.log('api', api)
   yield all([
-    // some sagas only receive an action
-    takeLatest(StartupTypes.STARTUP, startup),
 
-    takeLatest(AuthTypes.SIGN_UP_REQUEST, getSignUp, api),
+  	//takeLatest with the functions
+  	//takeLatest --> Spawns a saga on each action dispatched to the Store that matches pattern
+  	//First Param --> link and name of type action. 
+  	//Second Param --> link and name of function action.
+  	//third Param --> var or constant of connection.
+    takeLatest(AuthTypes.SIGN_UP_REQUEST, getAuth.getSignUp, api),
 
-    // some sagas receive extra parameters in addition to an action
-    // takeLatest(GithubTypes.USER_REQUEST, getUserAvatar, api)
+    takeLatest(AuthTypes.LOGIN_REQUEST, getAuth.getLogin, api),
+
+    takeLatest(AuthTypes.FORGOT_REQUEST, getAuth.getForgot, api),
+
+    takeLatest(AuthTypes.RESET_REQUEST, getAuth.getReset, api)
   ])
 }
