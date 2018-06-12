@@ -15,12 +15,14 @@ const {Types, Creators} = createActions({
 	forgotFailure: ['error'],
 	resetRequest: ['datauser'],
 	resetSuccess: ['response'],
-	resetFailure: ['error']
+	resetFailure: ['error'],
+	selectRole: ['datauser']
 }, {})
 
 /* ------------- Initial State ------------- */
 
 export const INITIAL_STATE = Immutable({
+	datauser: [],
 	signUpResults: [],
 	loginResults: [],
 	forgotResults: [],
@@ -32,7 +34,7 @@ export const INITIAL_STATE = Immutable({
 
 export const signUpRequest = function(state, data) {
 	console.log('signUpRequest', data)
-	return state.merge({signUpResults: data.datauser})
+	return state.merge({datauser: data.datauser})
 }
 
 export const signUpSuccess = function(state, actionResults){
@@ -47,7 +49,7 @@ export const signUpFailure = function(state, error) {
 
 export const loginRequest = function(state, data) {
 	console.log('loginRequest', data)
-	return state.merge({ loginResults: data.datauser})
+	return state.merge({ datauser: data.datauser})
 }
 
 export const loginSuccess = function(state, actionResults){
@@ -62,7 +64,7 @@ export const loginFailure = function(state, error) {
 
 export const forgotRequest = function(state, data) {
 	console.log('forgotRequest', data)
-	return state.merge({ forgotResults: data.datauser})
+	return state.merge({ datauser: data.datauser})
 }
 
 export const forgotSuccess = function(state, actionResults){
@@ -77,7 +79,7 @@ export const forgotFailure = function(state, error) {
 
 export const resetRequest = function(state, data) {
 	console.log('resetRequest', data)
-	return state.merge({ resetResults: data.datauser})
+	return state.merge({ datauser: data.datauser})
 }
 
 export const resetSuccess = function(state, actionResults){
@@ -88,6 +90,10 @@ export const resetSuccess = function(state, actionResults){
 export const resetFailure = function(state, error) {
 	console.log('resetRequestFailure', error)
 	return state.merge({ resetResults: false, error: error, user: null})
+}
+
+export const selectRole = function(state, role){
+	return state.merge(role)
 }
 
 /* ------------- Hookup Reducers To Types ------------- */
@@ -104,7 +110,8 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.FORGOT_FAILURE]: forgotFailure, 
   [Types.RESET_REQUEST]: resetRequest,
   [Types.RESET_SUCCESS]: resetSuccess,
-  [Types.RESET_FAILURE]: resetFailure
+  [Types.RESET_FAILURE]: resetFailure,
+  [Types.SELECT_ROLE]: selectRole
 })
 
 export const AuthTypes = Types

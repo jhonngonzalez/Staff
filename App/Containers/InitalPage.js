@@ -5,21 +5,20 @@ import { connect } from 'react-redux'
 // Styles
 import styles from './Styles/LaunchScreenStyles'
 
+// Auth
+import authActions from '../Redux/AuthRedux'
 
 export class Inital extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      role: ''
-    }
+    this.state = {role: ''}
   }
 
-  signup(role){
-    this.props.user.role = this.state.role
-    this.props.navigation.navigate('signup')
+  signup(){
+    this.props.selectRole(this.state)
+    this.props.navigation.navigate('SignUp')
   }
-
   render () {
     return (
       <View style={styles.backgroundView}>
@@ -31,13 +30,21 @@ export class Inital extends Component {
           </View>
           <View style={styles.section}>
             <TouchableOpacity 
-              onPress={this.signup('company')}
+              onPress={() => {
+                  this.state.role = 'company'
+                  this.signup()
+                }
+              }
               style={styles.btnSing} 
             >
               <Text style={styles.buttonText}> Company </Text>
             </TouchableOpacity>
             <TouchableOpacity 
-              onPress={this.signup('freelancer')}
+              onPress={() => {
+                  this.state.role = 'developer'
+                  this.signup()
+                }
+              }
               style={styles.btnSing} 
             >
               <Text style={styles.buttonText}> Freelancer </Text>
@@ -55,4 +62,10 @@ mapStateToProps = function(state){
   }
 } 
 
-export default connect(mapStateToProps, null)(Inital)
+const mapDispatchToProps = (dispatch) => {
+  return {
+    selectRole: (user) => dispatch(authActions.selectRole(user))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Inital)

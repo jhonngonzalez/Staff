@@ -43,6 +43,10 @@ const create = (baseURL = config.apiConfig.host) => {
     console.log('user_', user)
     return api.post('/users', user)
   }
+  const getPreLogin = (user) => {
+    console.log('user_', user)
+    return api.post('/preLogin', user)
+  }
   const getLogin = (user) => {
     console.log('user_', user)
     return api.post('/login', user)
@@ -78,6 +82,7 @@ const create = (baseURL = config.apiConfig.host) => {
     getRoot,
     getRate,
     getSign,
+    getPreLogin,
     getLogin,
     getForgot,
     getReset,

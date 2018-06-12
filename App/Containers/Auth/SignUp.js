@@ -12,12 +12,13 @@ export class SignUp extends Component {
 
   constructor(props) {
     super(props);
+    console.log('props: ', props)
     this.state = {
       companyName: '',
       email: '',
       password: '',
       confirm: '',
-      role: ''
+      role: props.user.datauser.role
     }
   }
 
@@ -33,7 +34,7 @@ export class SignUp extends Component {
   }
 
   componentWillReceiveProps(newProps){
-    if(this.props.user.signUpResults !== newProps.user.signUpResults && newProps.user.signUpResults === true){
+    if((newProps.user.signUpResults) && (this.props.user.loginResults !== newProps.user.loginResults && newProps.user.loginResults)){
       this.props.navigation.navigate('Profile')
     }
   }
