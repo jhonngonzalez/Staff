@@ -7,7 +7,7 @@ export default {
   allowTextFontScaling: true,
 
   apiConfig: {
-    host         : 'http://10.0.0.124:3000/api/v1',
+    host         : 'https://staff-on-demand-dot-rokk3r-labs.appspot.com/api/v1',
     apiPath      : 'api/v1',
     authStrategy : 'jwt',
     apiVersion   : 'v1'
