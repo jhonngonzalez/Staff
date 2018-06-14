@@ -65,6 +65,21 @@ const create = (baseURL = config.apiConfig.host) => {
     return api.get('/users/validate-token/'+user.code, user)
   }
 
+  const getProfile = (user) => {
+    console.log('user_', user)
+    return api.get('/users/me', null , {headers: {'Authorization': 'Bearer '+user.token}})
+  }
+
+  const getConstFormularies = (group) => {
+    console.log('group_', group)
+    return api.get('/formularies', group)
+  }
+
+  const getUpdateProfile = (user) => {
+    console.log('user_', user)
+    return api.put('/users', user)
+  }
+
   // ------
   // STEP 3
   // ------
@@ -86,7 +101,10 @@ const create = (baseURL = config.apiConfig.host) => {
     getLogin,
     getForgot,
     getReset,
-    getToken
+    getToken,
+    getProfile,
+    getConstFormularies,
+    getUpdateProfile
   }
 }
 

@@ -1,7 +1,7 @@
 import { StackNavigator } from 'react-navigation'
 import SignUp from '../Containers/Auth/SignUp'
 import Welcome from '../Containers/InitalPage'
-import Profile from '../Containers/Profile'
+import Profile from '../Containers/User/Profile'
 import Login from '../Containers/Auth/Login'
 import Forgot from '../Containers/Auth/Forgot'
 import Reset from '../Containers/Auth/Reset'
@@ -21,7 +21,7 @@ const authRoutes = StackNavigator({
 }, {
   // Default config for all screens
   headerMode: 'none',
-  initialRouteName: 'Welcome',
+  initialRouteName: 'Login',
   navigationOptions: {
     headerStyle: styles.header
   }

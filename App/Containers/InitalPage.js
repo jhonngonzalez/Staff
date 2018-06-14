@@ -23,6 +23,20 @@ export class Inital extends Component {
     return (
       <View style={styles.backgroundView}>
         <ScrollView style={styles.container}>
+          <View style={{
+            flexDirection: 'row',
+            justifyContent: 'flex-end' 
+          }}>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('Login')} style={{
+              position: 'absolute',
+              paddingTop: 0,
+              paddingHorizontal: 0
+            }}>
+              <Text style={styles.sectionText}>
+                Login
+              </Text>
+            </TouchableOpacity>
+          </View>
           <View style={styles.centered}>
             <Text style={styles.sectionText}>
               Welcome to Staff on Demand Platform
