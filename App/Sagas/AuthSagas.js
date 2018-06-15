@@ -6,26 +6,19 @@ export function * getSignUp (api, action) {
   const user = action.datauser
   // make the call to the api
   const response = yield call(api.getSign, user)
-  console.log('response sagas', response)
   if (response.ok) {
     // do data conversion here if needed
     const log = yield call(api.getLogin, user) 
-    console.log('log ', log)
     if(log.ok){
       const data = response.data.data
       const datauser = data
-      console.log('reponse sagas success', data)
       yield put(AuthActions.signUpSuccess(datauser))
-      console.log('log sagas success', data)
       yield put(AuthActions.loginSuccess(datauser))
     }else{
-      console.log('log sagas error', response.data.error)
       yield put(AuthActions.signUpSuccess(datauser))
-      console.log('reponse sagas error', log.data.error)
       yield put(AuthActions.loginFailure(log.data.error.userMessage))
     }
   } else {
-    console.log('response sagas error', response.data.error)
     yield put(AuthActions.signUpFailure(response.data.error.userMessage))
   }
 }
@@ -34,18 +27,14 @@ export function * getLogin (api, action) {
   const user = action.datauser
   // make the call to the api
   const validate = yield call(api.getPreLogin, user)
-  console.log('validate sagas', validate)
   if(validate.ok){
     const response = yield call(api.getLogin, user)
-    console.log('response sagas', response)
     if (response.ok) {
       const data = response.data.data
       const datauser = data
       // do data conversion here if needed
-      console.log('response sagas success', data)
       yield put(AuthActions.loginSuccess(datauser))
     } else {
-      console.log('response sagas error', response.data.error.userMessage)
       yield put(AuthActions.loginFailure())
     }
   }
@@ -55,15 +44,12 @@ export function * getForgot (api, action) {
   const user = action.datauser
   // make the call to the api
   const response = yield call(api.getForgot, user)
-  console.log('response sagas', response)
   if (response.ok) {
     const data = response.data.data
     const datauser = data
     // do data conversion here if needed
-    console.log('response sagas success', data)
     yield put(AuthActions.forgotSuccess(datauser))
   } else {
-     console.log('response sagas error', response.data.error.userMessage)
     yield put(AuthActions.forgotFailure())
   }
 }
@@ -72,18 +58,14 @@ export function * getReset (api, action) {
   const user = action.datauser
   // make the call to the api
   const validate = yield call(api.getToken, user)
-  console.log('validate sagas', validate)
   if(validate.ok){
     const response = yield call(api.getReset, user)
-    console.log('response sagas', response)
     if (response.ok) {
       const data = response.data.data
       const datauser = data
       // do data conversion here if needed
-      console.log('response sagas success', data)
       yield put(AuthActions.resetSuccess(datauser))
     } else {
-       console.log('response sagas error', response.data.error.userMessage)
       yield put(AuthActions.resetFailure())
     }
   }

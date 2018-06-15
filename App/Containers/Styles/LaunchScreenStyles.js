@@ -51,6 +51,9 @@ export default StyleSheet.create({
     margin: 5
   },
   titleText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    paddingTop: 20,
     justifyContent: 'center',
     alignItems: 'center',
     color: Colors.black,
@@ -88,6 +91,18 @@ export default StyleSheet.create({
   },
   pickerLanguage: {
     borderRadius: 5
+  },
+  btnAdd: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'relative',
+    backgroundColor: '#33B8FF',
+    margin: 5,
+    height: 20
+  },
+  skillBtn: {
+    display: 'flex',
+    position: 'relative'
   }
 
 

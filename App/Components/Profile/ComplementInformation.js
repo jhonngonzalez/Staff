@@ -13,8 +13,8 @@ export default class ComplementInformation extends Component {
 
   static propTypes = {
     email: PropTypes.string,
-    location: PropTypes.string,
-    countryCode: PropTypes.number,
+    location: PropTypes.object,
+    countryCode: PropTypes.string,
     phone: PropTypes.number,
     style: PropTypes.object,
     show: PropTypes.bool
@@ -23,7 +23,6 @@ export default class ComplementInformation extends Component {
   render () {
     const {email, location, countryCode, phone} = this.state
     const {style } = this.props
-    console.log('props: ', this.props)
     let complementComponent = null
     if (this.props.show) {
       return (
@@ -40,7 +39,7 @@ export default class ComplementInformation extends Component {
           </Text>
           <TextInput
             onChangeText={(text) => this.setState({location: text}) }
-            value={location ? location : this.props.location}
+            value={location ? location : (this.props.location && this.props.location.formatted_address) ? this.props.location.formatted_address : ''}
           />
           <Text style={style.text}>
             Country code

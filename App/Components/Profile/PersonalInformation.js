@@ -22,23 +22,26 @@ export default class PersonalInformation extends Component {
   render () {
     const {firstName, lastName} = this.state
     const {title, style} = this.props
-    console.log('props: ', this.props)
     let personalComponent = null
     if (this.props.show) {
       return (
         <View>
-          <Text style={style}>
-            {{title}}
-          </Text>
+          {
+            title ?
+              <Text style={style.title}>
+                {title}
+              </Text>
+            : null
+          }
           <View>
-            <Text style={style}>
+            <Text style={style.text}>
               First Name
             </Text>
             <TextInput
               onChangeText={(text) => this.setState({firstName: text}) }
               value={firstName ? firstName : this.props.firstName}
             />
-            <Text style={style}>
+            <Text style={style.text}>
               Last Name
             </Text>
             <TextInput

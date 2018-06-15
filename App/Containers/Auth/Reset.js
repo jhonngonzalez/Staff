@@ -21,13 +21,11 @@ export class Reset extends Component {
 
   reset(){
     if(this.state.password === this.state.confirm){
-      console.log('view: ', this.state)
       this.props.reset(this.state)
     }
   }
 
   login(){
-    console.log('Click: ')
     this.props.navigation.navigate('Login')
   }
 

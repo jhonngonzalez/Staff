@@ -6,6 +6,7 @@ import API from '../Services/Api'
 import { StartupTypes } from '../Redux/StartupRedux'
 import { AuthTypes } from '../Redux/AuthRedux'
 import { UserTypes } from '../Redux/UserRedux'
+import { UtilTypes } from '../Redux/UtilRedux'
 import { GithubTypes } from '../Redux/GithubRedux'
 
 /* ------------- Sagas ------------- */
@@ -13,6 +14,7 @@ import { GithubTypes } from '../Redux/GithubRedux'
 import { startup } from './StartupSagas'
 import * as getAuth from './AuthSagas'
 import * as getUser from './UserSagas'
+import * as getUtil from './UtilSagas'
 import { getUserAvatar } from './GithubSagas'
 
 /* ------------- API ------------- */
@@ -43,6 +45,12 @@ export default function * root () {
 
     takeLatest(UserTypes.PROFILE_REQUEST, getUser.getProfile, api),
 
-    takeLatest(UserTypes.UPDATE_PROFILE_REQUEST, getUser.getUpdateProfile, api)
+    takeLatest(UserTypes.UPDATE_PROFILE_REQUEST, getUser.getUpdateProfile, api),
+
+    takeLatest(UtilTypes.QUERY_LANGUAGES_REQUEST, getUtil.getLanguage, api),
+
+    takeLatest(UtilTypes.QUERY_LANGUAGES_LEVEL_REQUEST, getUtil.getLanguageLevel, api),
+
+    takeLatest(UtilTypes.QUERY_SKILL_LEVEL_REQUEST, getUtil.getSkillLevel, api)
   ])
 }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { View, Text, Picker } from 'react-native'
+import { View, Text, Picker, Item } from 'react-native'
 
 export default class LanguageInformation extends Component {
 
@@ -12,21 +12,21 @@ export default class LanguageInformation extends Component {
   }
 
   static propTypes = {
-    languages: PropTypes.array,
+    title: PropTypes.string,
+    languages: PropTypes.object,
     levels: PropTypes.array,
     style: PropTypes.object,
     show: PropTypes.bool
   }
 
   render () {
-    const {style, languages, levels} = this.props
-    console.log('props: ', this.props)
+    const {style, languages, levels, title} = this.props
     let languageComponent = null
     if (this.props.show) {
       return (
         <View>
           <Text style={style.title}>
-            Languages
+            {title}
           </Text>
           <View>
             <Text style={style.text}>
@@ -40,7 +40,7 @@ export default class LanguageInformation extends Component {
             >
               {
                 Object.keys(languages).map((key) => {
-                    return (<Item label={language[key]} value={key} key={key}/>) //if you have a bunch of keys value pair
+                    return (<Item label={languages[key]} value={key} key={key}/>) //if you have a bunch of keys value pair
                 })
               }
             </Picker>
@@ -59,6 +59,14 @@ export default class LanguageInformation extends Component {
                 })
               }
             </Picker>
+            <TouchableOpacity 
+              style={styles.btn}
+              onPress={() => this.props.this} 
+            >
+              <Text>
+                Add
+              </Text>
+            </TouchableOpacity>
           </View>
         </View>
       )

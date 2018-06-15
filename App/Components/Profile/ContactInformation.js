@@ -10,12 +10,11 @@ export default class ContactInformation extends Component {
   static defaultProps = { show: true }
 
   state = { 
-    firstName: '',
-    lastName: '',
     phone: ''
   }
 
   static propTypes = {
+    title: PropTypes.string,
     countryCode: PropTypes.number,
     phone: PropTypes.number,
     firstName: PropTypes.string,
@@ -25,28 +24,37 @@ export default class ContactInformation extends Component {
   }
 
   render () {
-    const {countryCode, phone} = this.state
-    const {style} = this.props
-    console.log('props: ', this.props)
+    const {phone } = this.state
+    const {countryCode, firstName, lastName, style, title} = this.props
     let contactComponent = null
     if (this.props.show) {
       return (
         <View>
-          <Text style={style.text}>
-            Country Code
+          <Text style={style.title}>
+            {title}
           </Text>
-          <TextInput
-            editable={false}                  
-            value={this.props.countryCode}
-          />
-          <Text style={style.text}>
-            Phone
-          </Text>
-          <TextInput            
-            keyboardType='numeric'
-            onChangeText={(text) => this.setState({phone: text}) }
-            value={phone ? phone : this.props.phone}
-          />
+          <View>
+            <PersonalInformation
+              firstName={firstName}
+              lastName={lastName}
+              style={{title: style.title, text:style.text}}
+            />
+            <Text style={style.text}>
+              Country Code
+            </Text>
+            <TextInput
+              editable={false}                  
+              value={this.props.countryCode}
+            />
+            <Text style={style.text}>
+              Phone
+            </Text>
+            <TextInput            
+              keyboardType='numeric'
+              onChangeText={(text) => this.setState({phone: text}) }
+              value={phone ? phone : this.props.phone}
+            />
+          </View>
         </View>
       )
     }

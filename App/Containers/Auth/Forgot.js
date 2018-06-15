@@ -19,7 +19,6 @@ export class Forgot extends Component {
 
   forgot(){
     if(this.state.email){
-      console.log('view: ', this.state)
       this.props.forgot(this.state)
     }
   }

@@ -12,7 +12,6 @@ export class SignUp extends Component {
 
   constructor(props) {
     super(props);
-    console.log('props: ', props)
     this.state = {
       companyName: '',
       email: '',
@@ -24,7 +23,6 @@ export class SignUp extends Component {
 
   signUp(){
     if(this.state.email && this.state.password && this.state.password === this.state.confirm){
-      console.log('view: ', this.state)
       this.props.signUp(this.state)
     }
   }
@@ -34,7 +32,7 @@ export class SignUp extends Component {
   }
 
   componentWillReceiveProps(newProps){
-    if((newProps.user.signUpResults) && (this.props.user.loginResults !== newProps.user.loginResults && newProps.user.loginResults)){
+    if((newProps.user.signUpResults == true) && (this.props.user.loginResults !== newProps.user.loginResults && newProps.user.loginResults == true)){
       this.props.navigation.navigate('Profile')
     }
   }

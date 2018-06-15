@@ -21,7 +21,6 @@ export class Login extends Component {
 
   login(){
     if(this.state.email && this.state.password){
-      console.log('view: ', this.state)
       this.props.login(this.state)
     }
   }
@@ -36,7 +35,6 @@ export class Login extends Component {
 
   componentWillReceiveProps(newProps){
     if((this.props.user.loginResults !== newProps.user.loginResults) && newProps.user.loginResults === true){
-      console.log('newProps.user.loginResults: ', newProps.user.loginResults)
       this.state.message = 'Logged in successfull'
       this.props.navigation.navigate('Profile')
     }

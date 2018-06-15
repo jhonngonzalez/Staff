@@ -11,6 +11,7 @@ const create = (baseURL = config.apiConfig.host) => {
   //
   // Create and configure an apisauce-based api object.
   //
+
   const api = apisauce.create({
     // base URL is read from the "constructor"
     baseURL,
@@ -40,44 +41,35 @@ const create = (baseURL = config.apiConfig.host) => {
   const getRate = () => api.get('rate_limit')
   // const getUser = (username) => api.get('search/users', {q: username})
   const getSign = (user) => {
-    console.log('user_', user)
     return api.post('/users', user)
   }
   const getPreLogin = (user) => {
-    console.log('user_', user)
     return api.post('/preLogin', user)
   }
   const getLogin = (user) => {
-    console.log('user_', user)
     return api.post('/login', user)
   }
   const getForgot = (user) => {
-    console.log('user_', user)
     return api.post('/users/forgot-password', user)
   }
   const getReset = (user) => {
-    console.log('user_', user)
     return api.post('/users/reset-password/', user)
   }
 
   const getToken = (user) => {
-    console.log('user_', user)
     return api.get('/users/validate-token/'+user.code, user)
   }
 
   const getProfile = (user) => {
-    console.log('user_', user)
-    return api.get('/users/me', null , {headers: {'Authorization': 'Bearer '+user.token}})
+    return api.get('/users/me', null , {headers: {'Authorization': 'Bearer '+ user.token}})
   }
 
   const getConstFormularies = (group) => {
-    console.log('group_', group)
-    return api.get('/formularies', group)
+    return api.get('/formularies?group='+group.constName, null , {headers: {'Authorization': 'Bearer '+ group.token}})
   }
 
   const getUpdateProfile = (user) => {
-    console.log('user_', user)
-    return api.put('/users', user)
+    return api.put('/users', user, {headers: {'Authorization': 'Bearer '+ user.token}})
   }
 
   // ------

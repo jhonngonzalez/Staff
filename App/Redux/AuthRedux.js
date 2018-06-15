@@ -33,62 +33,50 @@ export const INITIAL_STATE = Immutable({
 /* ------------- Reducers ------------- */
 
 export const signUpRequest = function(state, data) {
-	console.log('signUpRequest', data)
 	return state.merge({datauser: data.datauser})
 }
 
 export const signUpSuccess = function(state, actionResults){
-	console.log('signUpRequestSUCCESS', actionResults)
 	return state.merge({signUpResults: true, error: null, user: actionResults})
 }
 
 export const signUpFailure = function(state, error) {
-	console.log('signUpRequestFailure', error)
 	return state.merge({signUpResults: false, error: error, user: null})
 }
 
 export const loginRequest = function(state, data) {
-	console.log('loginRequest', data)
 	return state.merge({ datauser: data.datauser})
 }
 
 export const loginSuccess = function(state, actionResults){
-	console.log('loginRequestSUCCESS', actionResults)
 	return state.merge({ loginResults: true, error: null, user: actionResults})
 }
 
 export const loginFailure = function(state, error) {
-	console.log('loginRequestFailure', error)
 	return state.merge({ loginResults: false, error: error, user: null})
 }
 
 export const forgotRequest = function(state, data) {
-	console.log('forgotRequest', data)
 	return state.merge({ datauser: data.datauser})
 }
 
 export const forgotSuccess = function(state, actionResults){
-	console.log('forgotRequestSUCCESS', actionResults)
 	return state.merge({ forgotResults: true, error: null, user: actionResults})
 }
 
 export const forgotFailure = function(state, error) {
-	console.log('forgotRequestFailure', error)
 	return state.merge({ forgotResults: false, error: error, user: null})
 }
 
 export const resetRequest = function(state, data) {
-	console.log('resetRequest', data)
 	return state.merge({ datauser: data.datauser})
 }
 
 export const resetSuccess = function(state, actionResults){
-	console.log('resetRequestSUCCESS', actionResults)
 	return state.merge({ resetResults: true, error: null, user: actionResults})
 }
 
 export const resetFailure = function(state, error) {
-	console.log('resetRequestFailure', error)
 	return state.merge({ resetResults: false, error: error, user: null})
 }
 

@@ -18,7 +18,6 @@ export default class CompanyInformation extends Component {
   render () {
     const {companyName} = this.state
     const {title, style} = this.props
-    console.log('props: ', this.props)
     let companyComponent = null
     if (this.props.show) {
       return (
